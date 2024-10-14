@@ -67,7 +67,7 @@ const FetchSubjects = ({ userId }: { userId: string | null }) => {
             <h2 className="w-1/5 flex justify-center items-center ">{subject.grade}</h2>
             <h2 className="w-1/5 flex justify-center items-center">{subject.credit}</h2>
             <Link className="w-1/5 flex justify-center items-center" href={`/Update/${subject._id}`}><HiPencil /></Link>
-            <button className="w-1/5 flex justify-center items-center"><Remove subId={subject._id} userId={userId}/></button>
+            <button className="w-1/5 flex justify-center items-center"><Remove subId={subject._id} /></button>
           </div>
         ))
       )}

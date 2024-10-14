@@ -4,10 +4,9 @@ import useSubjectStore from '../store/subjectStore';
 
 interface Props {
   subId: string;
-  userId: string | null;
 }
 
-const Remove: React.FC<Props> = ({ subId, userId }) => {
+const Remove: React.FC<Props> = ({ subId }) => {
   const router = useRouter();
   const incrementDeletionCount = useSubjectStore((state) => state.incrementDeletionCount);
 

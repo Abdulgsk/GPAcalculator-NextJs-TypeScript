@@ -19,7 +19,7 @@ export default function Home() {
          else{
             setLoading("Loading...");
             try {
-               const res = await fetch("http://:3000/api/login",{
+               const res = await fetch("/api/login",{
                   method: "POST",
             headers:{
                "Content-type" : "application/json",
