@@ -1,5 +1,4 @@
 import { HiOutlineTrash } from "react-icons/hi2";
-import { useRouter } from "next/navigation";
 import useSubjectStore from '../store/subjectStore';
 
 interface Props {
@@ -7,7 +6,6 @@ interface Props {
 }
 
 const Remove: React.FC<Props> = ({ subId }) => {
-  const router = useRouter();
   const incrementDeletionCount = useSubjectStore((state) => state.incrementDeletionCount);
 
   const handleDelete = async () => {
