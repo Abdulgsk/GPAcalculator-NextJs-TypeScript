@@ -80,7 +80,7 @@ export default function Home() {
         </div>
         <p className="text-gray-100 p-3">
   Don't have an account? <span>
-    <Link className="text-blue-300 hover:underline" href={'/'}> Register&apos;</Link>
+    <Link className="text-blue-300 hover:underline" href={'/'}> {'Register'}</Link>
   </span>
 </p>
       </div>
