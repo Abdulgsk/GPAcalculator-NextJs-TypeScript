@@ -79,10 +79,9 @@ export default function Home() {
           </button>
         </div>
         <p className="text-gray-100 p-3">
-  Don't have an account? <span>
-    <Link className="text-blue-300 hover:underline" href={'/'}> {'Register'}</Link>
-  </span>
-</p>
+               Don't have an account?
+               <Link className="text-blue-300 hover:underline" href={'/'}> Register</Link>
+         </p>
       </div>
     </div>
   );
