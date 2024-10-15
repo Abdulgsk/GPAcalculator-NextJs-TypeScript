@@ -11,21 +11,34 @@ interface EditPageParams {
     params: EditPageParams;
   }
 
-export async function PUT(request : Request, {params} : EditProps) {
+  export async function PUT(request: NextRequest) {
     try {
-        const { newName : subName, newGrade : grade, newCredit : credit } = await request.json();
-        const { id : _id} = params;
+      const { newName: subName, newGrade: grade, newCredit: credit } = await request.json();
+  
 
-        await dbConnect();
-         await Subjects.findByIdAndUpdate(_id ,{ subName ,grade ,credit });
-    
-        return NextResponse.json({message : "Subject Updates"} , {status : 200});
-        
+      const _id = request.nextUrl.pathname.split('/').pop();
+  
+      if (!_id) {
+        return NextResponse.json({ message: "ID is required" }, { status: 400 });
+      }
+  
+      
+      await dbConnect();
+  
+      
+      const updatedSubject = await Subjects.findByIdAndUpdate(_id, { subName, grade, credit }, { new: true });
+  
+      
+      if (!updatedSubject) {
+        return NextResponse.json({ message: "Subject not found" }, { status: 404 });
+      }
+  
+      return NextResponse.json({ message: "Subject updated", updatedSubject }, { status: 200 });
     } catch (error) {
-        console.log("Error fetching sbjects",error);
-        return NextResponse.json({ message: "Error fetching subjects" }, { status: 500 });
+      console.error("Error updating subject", error);
+      return NextResponse.json({ message: "Error updating subject" }, { status: 500 });
     }
-   
+  
  }
 
  export async function GET(request : NextRequest ){
