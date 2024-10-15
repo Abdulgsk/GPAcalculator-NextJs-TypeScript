@@ -23,7 +23,7 @@ function SubjectsContent() {
   const getUserName = async () => {
     if (!userId) return;
     try {
-      const res = await fetch(`/api/GetUser?userId=${encodeURIComponent(userId)}`, {
+      const res = await fetch(`/api/GetUser/${encodeURIComponent(userId)}`, {
         cache: 'no-store',
         method: "GET",
         headers: {

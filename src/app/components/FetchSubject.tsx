@@ -21,7 +21,7 @@ const FetchSubjects = ({ userId }: { userId: string | null }) => {
   const getSubjects = async (userId: string | null): Promise<Subject[]> => {
     if (!userId) return [];
     try {
-      const res = await fetch(`/api/getSubjects?userId=${encodeURIComponent(userId)}`, {
+      const res = await fetch(`/api/getSubjects/${encodeURIComponent(userId)}`, {
         cache: 'no-store',
         method: "GET",
         headers: {

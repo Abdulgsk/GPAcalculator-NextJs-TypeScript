@@ -8,6 +8,7 @@ import { NextRequest } from "next/server";
 export async function GET(request: NextRequest) {
   try {
      const userId = request.nextUrl.pathname.split('/').pop();
+     console.log(userId)
 
     if (!userId) {
       return NextResponse.json(
