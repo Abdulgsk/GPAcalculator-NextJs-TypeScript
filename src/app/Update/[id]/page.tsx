@@ -32,14 +32,14 @@ export default async function Update({ params }: EditProps) {
   const { id } = params;
   const data = await getTopicById(id);
 
-  // If no data is returned, show an error message
-  if (!data || !data.subject) {
-    return (
-      <div className="w-full h-full flex justify-center items-center text-gray-200">
-        <h1>Error fetching subject {id}</h1>
-      </div>
-    );
-  }
+ 
+  // if (!data || !data.subject) {
+  //   return (
+  //     <div className="w-full h-full flex justify-center items-center text-gray-200">
+  //       <h1>Error fetching subject {id}</h1>
+  //     </div>
+  //   );
+  // }
 
   const { subject } = data;
   const { subName, grade, credit } = subject;
