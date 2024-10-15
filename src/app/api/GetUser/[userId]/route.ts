@@ -1,8 +1,9 @@
 import { dbConnect } from "@/app/_lib/mongoose";
 import User from "@/app/models/user";
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-export async function GET({ params }: { params: { userId: string } }) {
+export async function GET(request: NextRequest, { params }: { params: { userId: string } }) {
   try {
     const { userId } = params;
 
