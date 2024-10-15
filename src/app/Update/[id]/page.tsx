@@ -35,7 +35,7 @@ export default async function Update({ params }: EditProps) {
   if (!data || !data.subject) {
     return (
       <div className="w-full h-full flex justify-center items-center">
-        <h1>Error fetching subject</h1>
+        <h1>Error fetching subject {id}</h1>
       </div>
     );
   }
