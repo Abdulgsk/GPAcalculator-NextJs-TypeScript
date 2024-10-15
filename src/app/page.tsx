@@ -19,7 +19,7 @@ export default function Home() {
          else{
             setLoading("Loading...");
             try {
-               const res = await fetch("/api/userName",{
+               const res = await fetch("http://gp-acalculator-next-js-type-script-nsib5kavy.vercel.app/api/userName",{
                   method: "POST",
             headers:{
                "Content-type" : "application/json"
