@@ -1,6 +1,7 @@
 import { dbConnect } from "@/app/_lib/mongoose";
 import Subjects from "@/app/models/subject";
 import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 interface EditPageParams {
     id: string;
@@ -27,10 +28,10 @@ export async function PUT(request : Request, {params} : EditProps) {
    
  }
 
- export async function GET(request : Request , {params} : EditProps){
+ export async function GET(request : NextRequest ){
     try {
         
-        const {id : _id} = params;
+        const _id  = request.nextUrl.pathname.split('/').pop();
         await dbConnect();
         const subject = await Subjects.findOne({_id});
         return NextResponse.json({subject}, {status: 200})
