@@ -3,7 +3,7 @@
 import { dbConnect } from "@/app/_lib/mongoose";
 import Subjects from "@/app/models/subject";
 import { NextResponse } from "next/server";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
