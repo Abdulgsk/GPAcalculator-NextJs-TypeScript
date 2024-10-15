@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 interface Subject {
@@ -10,14 +10,14 @@ interface Subject {
   credit: number;
 }
 
-const FetchSubjects = () => {
+function SubjectsContent() {
   const params = useSearchParams();
   const userId = params.get("userId");
 
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [name, setName] = useState(""); 
   const [result, setResult] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(false); 
+  const [loading, setLoading] = useState<boolean>(false);
 
   // Fetch user name based on userId
   const getUserName = async () => {
@@ -158,6 +158,14 @@ const FetchSubjects = () => {
         </div>
       </div>
     </div>
+  );
+}
+
+const FetchSubjects = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SubjectsContent />
+    </Suspense>
   );
 };
 
