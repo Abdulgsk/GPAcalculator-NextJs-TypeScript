@@ -9,6 +9,7 @@ interface EditProps {
 }
 
 const getTopicById = async (id: string) => {
+  console.log(id);
   try {
     const res = await fetch(`/api/editSubjects/${encodeURIComponent(id)}`, {
       cache: "no-store",

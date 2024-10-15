@@ -3,13 +3,6 @@ import Subjects from "@/app/models/subject";
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
-interface EditPageParams {
-    id: string;
-  }
-  
-  interface EditProps {
-    params: EditPageParams;
-  }
 
   export async function PUT(request: NextRequest) {
     try {
