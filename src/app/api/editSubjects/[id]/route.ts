@@ -38,15 +38,15 @@ import { NextRequest } from "next/server";
 export async function GET(request: NextRequest) {
     try {
       
-      const _id = request.nextUrl.pathname.split('/').pop();
+      const id = request.nextUrl.pathname.split('/').pop();
   
-      if (!_id) {
+      if (!id) {
         return NextResponse.json({ message: 'Subject ID is required' }, { status: 400 });
       }
   
       await dbConnect();
   
-      const subject = await Subjects.findOne({ _id });
+      const subject = await Subjects.findOne({ _id : id });
   
       if (!subject) {
         return NextResponse.json({ message: 'Subject not found' }, { status: 404 });
