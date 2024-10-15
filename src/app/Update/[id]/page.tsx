@@ -20,6 +20,7 @@ const getTopicById = async (id: string) => {
     }
 
     const data = await res.json();
+    console.log(data);
     return data;
   } catch (error) {
     console.error("Error fetching the subject", error ,id);
