@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
     id: string;  
     subName: string; 
     grade: string;  
-    credit: string; 
+    credit: number; 
   }
 
   export default function Edit({ id, subName, grade, credit }: EditProps) {
@@ -23,7 +23,7 @@ import { useRouter } from "next/navigation";
                setNewGrade(event.target.value)
         }
         const onCreditChange =   (event: React.ChangeEvent<HTMLInputElement>) =>{
-              setNewCredit(event.target.value)
+              setNewCredit(Number(event.target.value))
         }
        
         const router = useRouter();
