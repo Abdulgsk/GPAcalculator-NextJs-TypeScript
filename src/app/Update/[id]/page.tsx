@@ -34,6 +34,7 @@ const getTopicById = async (id: string) => {
 
 export default async function Update({ params }: EditProps) {
   const { id } = params;
+  console.log(id);
   const data = await getTopicById(id);
 
  
