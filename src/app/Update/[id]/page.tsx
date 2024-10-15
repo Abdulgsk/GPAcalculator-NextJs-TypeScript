@@ -9,7 +9,6 @@ interface EditProps {
 }
 
 const getTopicById = async (id: string) => {
-
   try {
     const res = await fetch(`/api/editSubjects/${encodeURIComponent(id)}`, {
       cache: "no-store",
@@ -24,27 +23,29 @@ const getTopicById = async (id: string) => {
     }
 
     const data = await res.json();
-    console.log(data);
+    console.log(data, "Fetched data");
     return data;
   } catch (error) {
-    console.error("Error fetching the subject", error ,id);
-    return null; 
+    console.error("Error fetching the subject", error, id);
+    return null;
   }
 };
 
 export default async function Update({ params }: EditProps) {
   const { id } = params;
-  console.log(id);
+  console.log(id, "ID passed to Update page");
+
+  // Await the fetch operation
   const data = await getTopicById(id);
 
- 
-  // if (!data || !data.subject) {
-  //   return (
-  //     <div className="w-full h-full flex justify-center items-center text-gray-200">
-  //       <h1>Error fetching subject {id}</h1>
-  //     </div>
-  //   );
-  // }
+  // Ensure data and subject exist, otherwise show error
+  if (!data || !data.subject) {
+    return (
+      <div className="w-full h-full flex justify-center items-center text-gray-200">
+        <h1>Error fetching subject {id}</h1>
+      </div>
+    );
+  }
 
   const { subject } = data;
   const { subName, grade, credit } = subject;
