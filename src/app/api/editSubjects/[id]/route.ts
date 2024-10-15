@@ -34,14 +34,27 @@ import { NextRequest } from "next/server";
   
  }
 
- export async function GET(request : NextRequest ){
+ 
+export async function GET(request: NextRequest) {
     try {
-        
-        const _id  = request.nextUrl.pathname.split('/').pop();
-        await dbConnect();
-        const subject = await Subjects.findOne({_id});
-        return NextResponse.json({subject}, {status: 200})
+      
+      const _id = request.nextUrl.pathname.split('/').pop();
+  
+      if (!_id) {
+        return NextResponse.json({ message: 'Subject ID is required' }, { status: 400 });
+      }
+  
+      await dbConnect();
+  
+      const subject = await Subjects.findOne({ _id });
+  
+      if (!subject) {
+        return NextResponse.json({ message: 'Subject not found' }, { status: 404 });
+      }
+  
+      return NextResponse.json({ subject }, { status: 200 });
     } catch (error) {
-        console.log("Error finding subject",error)
+      console.error('Error finding subject:', error);
+      return NextResponse.json({ message: 'Error finding subject' }, { status: 500 });
     }
- }
+  }
