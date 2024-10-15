@@ -34,7 +34,7 @@ export default async function Update({ params }: EditProps) {
   // If no data is returned, show an error message
   if (!data || !data.subject) {
     return (
-      <div className="w-full h-full flex justify-center items-center">
+      <div className="w-full h-full flex justify-center items-center text-gray-200">
         <h1>Error fetching subject {id}</h1>
       </div>
     );
