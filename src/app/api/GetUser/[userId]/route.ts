@@ -1,5 +1,3 @@
-// In pages/api/user/[userId].ts
-
 import { dbConnect } from "@/app/_lib/mongoose";
 import User from "@/app/models/user";
 import { NextResponse } from "next/server";
