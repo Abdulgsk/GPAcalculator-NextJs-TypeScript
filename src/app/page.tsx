@@ -19,7 +19,7 @@ export default function Home() {
          else{
             setLoading("Loading...");
             try {
-               const res = await fetch("http://gp-acalculator-next-js-type-script-nsib5kavy.vercel.app/api/userName",{
+               const res = await fetch("/api/userName",{
                   method: "POST",
             headers:{
                "Content-type" : "application/json"
@@ -37,7 +37,7 @@ export default function Home() {
             throw new Error('Failed to add UserName');
          }
          const data = await res.json();
-         router.push(`/UserName?name=${name}&userId=${data.userId}`)
+         router.push(`/UserName?name=${encodeURIComponent(name)}&userId=${encodeURIComponent(data.userId)}`)
       } catch (error) {
          console.log("Error loading User: ",error)
       }
