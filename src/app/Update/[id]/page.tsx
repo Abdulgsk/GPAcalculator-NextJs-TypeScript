@@ -9,7 +9,7 @@ interface EditProps {
 }
 
 const getTopicById = async (id: string) => {
-  console.log(id);
+
   try {
     const res = await fetch(`/api/editSubjects/${encodeURIComponent(id)}`, {
       cache: "no-store",
@@ -22,8 +22,8 @@ const getTopicById = async (id: string) => {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error fetching subject", error);
-    return null; // Return null in case of an error
+    console.error("Error fetching subject", error ,id);
+    return null; 
   }
 };
 
