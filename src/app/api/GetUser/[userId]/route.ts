@@ -1,29 +1,24 @@
+// In pages/api/user/[userId].ts
+
 import { dbConnect } from "@/app/_lib/mongoose";
-import User from "@/app/models/user"; 
+import User from "@/app/models/user";
 import { NextResponse } from "next/server";
 
-
-export async function GET(request: Request) {
+export async function GET({ params }: { params: { userId: string } }) {
   try {
-   
-    const { searchParams } = new URL(request.url);
-    const userId = searchParams.get("userId");
+    const { userId } = params;
 
-  
     if (!userId) {
       return NextResponse.json(
-        { message: "userId query parameter is required" },
+        { message: "userId parameter is required" },
         { status: 400 }
       );
     }
 
-    
     await dbConnect();
 
-    
     const user = await User.findOne({ _id: userId });
 
- 
     if (!user) {
       return NextResponse.json(
         { message: "User not found" },
@@ -31,7 +26,6 @@ export async function GET(request: Request) {
       );
     }
 
-  
     return NextResponse.json(
       { name: user.name },
       { status: 200 }

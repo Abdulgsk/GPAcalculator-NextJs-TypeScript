@@ -37,7 +37,7 @@ const FetchSubjects = () => {
       }
 
       const data = await res.json();
-      setName(data.name || "User"); // Set the user's name or a default value
+      setName(data.name || "User");
     } catch (error) {
       console.error("Error fetching user name:", error);
     }
