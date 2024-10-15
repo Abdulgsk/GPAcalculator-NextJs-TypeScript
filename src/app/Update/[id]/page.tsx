@@ -15,7 +15,7 @@ interface EditPageParams {
         const res = await fetch(`/api/editSubjects/${id}`,{
             cache:"no-store"
         },)
-
+        
         if(!res.ok)
         {
             throw new Error("Faild to fetch subject");
@@ -32,6 +32,7 @@ export default async function Update({params}: EditProps) {
 
     const {id} = params;
     const {subject} = await getTopicById(id);
+
 
     if (!subject) {
         return <div className="w-full h-full flex justify-center items-center"><h1>Error fetching subject</h1></div>; 

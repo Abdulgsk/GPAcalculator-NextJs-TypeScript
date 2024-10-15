@@ -1,4 +1,3 @@
-// store/subjectStore.ts
 import { create } from 'zustand'
 
 interface SubjectState {
@@ -15,4 +14,4 @@ const useSubjectStore = create<SubjectState>((set) => ({
   incrementAdditionCount: () => set((state) => ({ additionCount: state.additionCount + 1 })),
 }))
 
-export default useSubjectStore
+export default useSubjectStore;

@@ -35,7 +35,7 @@ export default function AddItems() {
             setLoading("Add Subject");
             return;
         }
-        if (isNaN(creditsNumber) || creditsNumber < 1 || creditsNumber > 3) {
+        if (isNaN(creditsNumber) || creditsNumber < 1 || creditsNumber > 4) {
             alert("Credits must be a number between 1 and 3");
             setLoading("Add Subject");
             return;

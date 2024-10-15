@@ -19,7 +19,7 @@ export default function Home() {
          else{
             setLoading("Loading...");
             try {
-               const res = await fetch("http://localhost:3000/api/userName",{
+               const res = await fetch("/api/userName",{
                   method: "POST",
             headers:{
                "Content-type" : "application/json"

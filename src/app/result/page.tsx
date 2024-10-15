@@ -85,7 +85,7 @@ const FetchSubjects = () => {
     subjects.forEach((subject) => {
       const grade = subject.grade.toLowerCase();
       if (grade in gradePoints) {
-        sum += gradePoints[grade];
+        sum += gradePoints[grade]*subject.credit;
       } else {
         console.warn(`Unknown grade: ${subject.grade}`);
       }
@@ -102,7 +102,7 @@ const FetchSubjects = () => {
 
     const totalCredits = handleSumCredits();
     const gradeSum = handleGradeSum();
-
+    
     if (totalCredits > 0) {
       const calculatedGpa = parseFloat((gradeSum / totalCredits).toFixed(2));
       setResult(calculatedGpa);
