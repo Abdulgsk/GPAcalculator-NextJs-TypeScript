@@ -2,12 +2,9 @@ import { dbConnect } from "@/app/_lib/mongoose";
 import User from "@/app/models/user";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { userId: string } }
-) {
+export async function GET(request: NextRequest) {
   try {
-    const userId = params.userId;
+    const userId = request.nextUrl.pathname.split('/').pop();
 
     if (!userId) {
       return NextResponse.json(
