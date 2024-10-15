@@ -13,6 +13,10 @@ const getTopicById = async (id: string) => {
   try {
     const res = await fetch(`/api/editSubjects/${encodeURIComponent(id)}`, {
       cache: "no-store",
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
     });
 
     if (!res.ok) {

@@ -43,6 +43,8 @@ export async function GET(request: NextRequest) {
       if (!id) {
         return NextResponse.json({ message: 'Subject ID is required' }, { status: 400 });
       }
+
+      console.log(id);
   
       await dbConnect();
   
