@@ -31,18 +31,18 @@ function UserNameContent() {
 
 export default function UserName() {
   return (
-    <div className="h-screen w-screen flex justify-center items-center sm:p-3">
+    <div className="min-h-screen w-full flex justify-center items-center p-4 sm:p-6 md:p-8">
       <div className="w-full max-w-lg mx-auto border-2 border-gray-600 flex flex-col justify-center items-start p-4 md:p-8 bg-gray-800 rounded-lg">
         <Suspense fallback={
-           <div className="flex items-center justify-center h-screen bg-gradient-to-r from-graycustom to-black">
-           <div className="flex items-center space-x-2 mt-5">
-             <div className="w-5 h-5 bg-white rounded-full animate-bounce" />
-             <div className="w-5 h-5 bg-white rounded-full animate-bounce delay-1000" />
-             <div className="w-5 h-5 bg-white rounded-full animate-bounce delay-700" />
-           </div>
-           <p className="mt-4 text-white text-2xl font-semibold px-2">Loading...</p>
-         </div>
-          }>
+          <div className="flex flex-col items-center justify-center h-64 w-full">
+            <div className="flex items-center space-x-2">
+              <div className="w-5 h-5 bg-white rounded-full animate-bounce" />
+              <div className="w-5 h-5 bg-white rounded-full animate-bounce delay-1000" />
+              <div className="w-5 h-5 bg-white rounded-full animate-bounce delay-700" />
+            </div>
+            <p className="mt-4 text-white text-2xl font-semibold px-2">Loading...</p>
+          </div>
+        }>
           <UserNameContent />
         </Suspense>
       </div>
