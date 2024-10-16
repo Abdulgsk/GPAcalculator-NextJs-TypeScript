@@ -34,9 +34,13 @@ import { NextRequest } from "next/server";
   
  }
 
- export async function GET(request: NextRequest) {
+
+ export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
-    const id = request.nextUrl.pathname.split('/').pop();
+    const { id } = params;
     console.log("Received GET request for id:", id);
 
     if (!id) {
@@ -47,7 +51,7 @@ import { NextRequest } from "next/server";
     await dbConnect();
     console.log("Connected to database");
 
-    const subject = await Subjects.findOne({ _id: id });
+    const subject = await Subjects.findById(id);
     console.log("Query result:", subject);
 
     if (!subject) {

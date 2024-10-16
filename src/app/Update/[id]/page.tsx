@@ -10,7 +10,8 @@ interface EditProps {
 }
 const getTopicById = async (id: string) => {
   try {
-    const res = await fetch(`/api/editSubjects/${encodeURIComponent(id)}`, {
+    const encodedId = encodeURIComponent(id.trim());
+    const res = await fetch(`/api/editSubjects/${encodedId}`, {
       cache: "no-store",
       method: "GET",
       headers: {
@@ -30,18 +31,21 @@ const getTopicById = async (id: string) => {
     return data;
   } catch (error) {
     console.error("Error fetching the subject", error, id);
-    throw error; // Re-throw the error to be handled by the caller
+    throw error;
   }
 };
+
 export default async function Update({ params }: EditProps) {
   const { id } = params;
   console.log(id, "ID passed to Update page");
 
   try {
-    // Await the fetch operation
+    if (!id) {
+      throw new Error("No ID provided");
+    }
+
     const data = await getTopicById(id);
 
-    // Ensure data and subject exist
     if (!data || !data.subject) {
       throw new Error("Subject data is missing");
     }
