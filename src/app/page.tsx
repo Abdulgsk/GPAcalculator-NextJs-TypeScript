@@ -1,51 +1,63 @@
-"use client"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
+"use client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Home() {
    const router = useRouter();
 
-   const [name, setName] = useState<string>("")
-   const [password, setPassword] = useState<string>("")
+   const [name, setName] = useState<string>("");
+   const [password, setPassword] = useState<string>("");
    const [loading, setLoading] = useState<string>("Register");
+
+   const validatePassword = (password: string) => {
+      const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+      return regex.test(password);
+   };
 
    const handleSubmit = async () => {
       if (name === "" || password === "") {
-         alert("All fields required");
+         alert("All fields are required");
          return;
-      } else {
-         setLoading("Loading...");
-         try {
-            const res = await fetch("/api/userName", {
-               method: "POST",
-               headers: {
-                  "Content-type": "application/json"
-               },
-               body: JSON.stringify({ name, password })
-            });
-            if (res.status === 409) {
-               const data = await res.json();
-               alert(data.message);
-               setLoading("Register");
-               return;
-            }
-            if (!res.ok) {
-               throw new Error('Failed to add UserName');
-            }
+      }
+
+      if (!validatePassword(password)) {
+         alert("Password must be at least 8 characters long, contain an uppercase letter, and a special character.");
+         return;
+      }
+
+      setLoading("Loading...");
+      try {
+         const res = await fetch("/api/userName", {
+            method: "POST",
+            headers: {
+               "Content-type": "application/json",
+            },
+            body: JSON.stringify({ name, password }),
+         });
+         if (res.status === 409) {
             const data = await res.json();
-            router.push(`/UserName?name=${encodeURIComponent(name)}&userId=${encodeURIComponent(data.userId)}`)
-         } catch (error) {
-            console.log("Error loading User: ", error)
+            alert(data.message);
+            setLoading("Register");
+            return;
          }
+         if (!res.ok) {
+            throw new Error("Failed to add UserName");
+         }
+         const data = await res.json();
+         router.push(`/UserName?name=${encodeURIComponent(name)}&userId=${encodeURIComponent(data.userId)}`);
+      } catch (error) {
+         console.log("Error loading User: ", error);
       }
    };
-   const handleInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+
+   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setName(event.target.value);
-   }
-   const handlePasswordChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+   };
+   
+   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setPassword(event.target.value);
-   }
+   };
 
    return (
       <div className="h-screen w-screen flex justify-center items-center px-4">
@@ -79,5 +91,5 @@ export default function Home() {
             <p className="text-gray-100 text-center mt-4 w-full">Already have an account? <span><Link className="text-blue-300 hover:underline" href={'/login'}>Login</Link></span></p>
          </div>
       </div>
-   )
+   );
 }

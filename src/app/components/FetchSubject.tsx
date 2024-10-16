@@ -6,6 +6,7 @@ import { HiPencil } from "react-icons/hi2";
 import Remove from "./Remove";
 import useSubjectStore from '../store/subjectStore';
 
+
 interface Subject {
   _id: string;
   subName: string;
@@ -13,7 +14,9 @@ interface Subject {
   credit: number;
 }
 
-const FetchSubjects = ({ userId }: { userId: string | null }) => {
+
+
+const FetchSubjects = ({ userId , onSubjectCountChange}: { userId: string | null, onSubjectCountChange: (count: number) => void }) => {
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [loading, setLoading] = useState(true);
   const { deletionCount, additionCount } = useSubjectStore();
@@ -34,7 +37,6 @@ const FetchSubjects = ({ userId }: { userId: string | null }) => {
         return [];
       }
       const data = await res.json();
-      console.log(data, "this is the data");
       return data || [];
     } catch (error) {
       console.error("Error:", error);
@@ -46,31 +48,47 @@ const FetchSubjects = ({ userId }: { userId: string | null }) => {
     const fetchData = async () => {
       const fetchedSubjects = await getSubjects(userId);
       setSubjects(fetchedSubjects);
+      onSubjectCountChange(fetchedSubjects.length);
       setLoading(false);
     };
 
     fetchData();
-  }, [userId, deletionCount, additionCount]); // Add additionCount to the dependency array
+  }, [userId, deletionCount, additionCount]);
 
   if (loading) {
     return <div className="w-full flex justify-center items-center text-gray-300 font-medium p-2">Loading...</div>;
   }
 
   return (
-    <div>
+    <div className="w-full mt-4">
+      {/* Header Row */}
+      <div className="flex flex-row items-center justify-between font-semibold border-b-2 border-gray-600 bg-gray-800 text-gray-200 p-2">
+        <h2 className="w-1/5 text-center">Subject</h2>
+        <h2 className="w-1/5 text-center">Grade</h2>
+        <h2 className="w-1/5 text-center">Credits</h2>
+        <h2 className="w-1/5 text-center">Update</h2>
+        <h2 className="w-1/5 text-center">Delete</h2>
+      </div>
+
+      {/* Subjects List */}
       {subjects.length === 0 ? (
-        <div className="w-full flex justify-center items-center text-gray-300 font-medium p-2">No subjects found.</div>
+        <div className="w-full flex justify-center items-center text-gray-300 font-medium p-2 mt-2">No subjects found.</div>
       ) : (
         subjects.map((subject) => (
-          <div key={subject._id} className="w-full flex flex-row items-center justify-around font-semibold border-b-gray-700 border-b p-2 text-gray-400">
-            <h2 className="w-1/5 flex justify-center items-center">{subject.subName}</h2>
-            <h2 className="w-1/5 flex justify-center items-center ">{subject.grade}</h2>
-            <h2 className="w-1/5 flex justify-center items-center">{subject.credit}</h2>
-            <Link className="w-1/5 flex justify-center items-center" href={`/Update?subId=${subject._id}`}><HiPencil /></Link>
-            <button className="w-1/5 flex justify-center items-center"><Remove subId={subject._id} /></button>
+          <div key={subject._id} className="flex flex-row items-center justify-between font-semibold border-b border-gray-700 p-2 text-gray-400 bg-gray-900 hover:bg-gray-800 transition duration-300">
+            <h2 className="w-1/5 text-center">{subject.subName}</h2>
+            <h2 className="w-1/5 text-center">{subject.grade}</h2>
+            <h2 className="w-1/5 text-center">{subject.credit}</h2>
+            <Link className="w-1/5 flex justify-center items-center" href={`/Update?subId=${subject._id}`}>
+              <HiPencil className="text-gray-300 hover:text-blue-400 transition duration-200" />
+            </Link>
+            <button className="w-1/5 flex justify-center items-center">
+              <Remove subId={subject._id} />
+            </button>
           </div>
         ))
       )}
+           
     </div>
   );
 };

@@ -6,7 +6,7 @@ interface EditProps {
   id: string;  
   subName: string; 
   grade: string;  
-  credit: number; 
+  credit: string; 
 }
 
 export default function Edit({ id, subName, grade, credit }: EditProps) {
@@ -24,13 +24,31 @@ export default function Edit({ id, subName, grade, credit }: EditProps) {
   };
 
   const onCreditChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewCredit(Number(event.target.value));
+    setNewCredit(event.target.value);
   };
 
   const router = useRouter();
 
   const handleUpdate = async () => {
     setLoading("Updating...");
+    const validGrades = ["O", "o", "A", "a", "A+", "a+", "B", "b", "B+", "b+", "C", "c", "C+", "c+"];
+    const creditsNumber = parseInt(newCredit, 10);
+
+    if (newName=== "" || newGrade === "" || newCredit === "") {
+        alert("All fields must be filled out");
+        setLoading("Update Subject");
+        return;
+    }
+    if (!validGrades.includes(newGrade)) {
+        alert("Invalid grade. Must be one of: O, A, A+, B, B+, C, C+");
+        setLoading("Update Subject");
+        return;
+    }
+    if (isNaN(creditsNumber) || creditsNumber < 1 || creditsNumber > 4) {
+        alert("Credits must be a number between 1 and 4");
+        setLoading("Update Subject");
+        return;
+    }
     try {
       const res = await fetch(`/api/editSubjects/${encodeURIComponent(id)}`, {
         method: "PUT",
