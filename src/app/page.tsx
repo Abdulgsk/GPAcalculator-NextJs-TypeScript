@@ -11,7 +11,7 @@ export default function Home() {
    const [loading, setLoading] = useState<string>("Register");
 
    const validatePassword = (password: string) => {
-      const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+      const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{5,}$/;
       return regex.test(password);
    };
 
@@ -22,7 +22,7 @@ export default function Home() {
       }
 
       if (!validatePassword(password)) {
-         alert("Password must be at least 8 characters long, contain an uppercase letter, and a special character.");
+         alert("Password must be at least 5 characters long, contain an uppercase letter, and a special character.");
          return;
       }
 
