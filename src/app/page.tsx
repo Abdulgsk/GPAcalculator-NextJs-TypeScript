@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function Home() {
    const router = useRouter();
@@ -9,6 +10,7 @@ export default function Home() {
    const [name, setName] = useState<string>("");
    const [password, setPassword] = useState<string>("");
    const [loading, setLoading] = useState<string>("Register");
+   const [showPassword, setShowPassword] = useState<boolean>(false);
 
    const validatePassword = (password: string) => {
       const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{5,}$/;
@@ -59,6 +61,10 @@ export default function Home() {
       setPassword(event.target.value);
    };
 
+   const togglePasswordVisibility = () => {
+      setShowPassword(!showPassword);
+   };
+
    return (
       <div className="h-screen w-screen flex justify-center items-center px-4">
          <div className="p-6 w-full max-w-md border-2 border-gray-600 rounded-lg bg-gray-800 flex flex-col justify-center items-start">
@@ -72,13 +78,24 @@ export default function Home() {
                />
             </div>
             <h2 className="text-3xl font-extrabold py-2 text-gray-300">Password</h2>
-            <div className="py-2 w-full">
+            <div className="py-2 w-full relative">
                <input
-                  className="w-full border h-12 text-white rounded-md bg-transparent px-3 focus:outline-none focus:ring-2 focus:ring-lime-500"
+                  className="w-full border h-12 text-white rounded-md bg-transparent px-3 pr-10 focus:outline-none focus:ring-2 focus:ring-lime-500"
                   placeholder="Password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   onChange={handlePasswordChange}
                />
+               <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  onClick={togglePasswordVisibility}
+               >
+                  {showPassword ? (
+                     <EyeOff className="h-5 w-5 text-gray-300" />
+                  ) : (
+                     <Eye className="h-5 w-5 text-gray-300" />
+                  )}
+               </button>
             </div>
             <div className="flex justify-center mt-12 w-full">
                <button
