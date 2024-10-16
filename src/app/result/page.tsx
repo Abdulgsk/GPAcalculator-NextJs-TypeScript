@@ -46,7 +46,7 @@ function SubjectsContent() {
   const getSubjects = async (): Promise<Subject[]> => {
     if (!userId) return [];
     try {
-      const res = await fetch(`/api/getSubjects?userId=${encodeURIComponent(userId)}`, {
+      const res = await fetch(`/api/getSubjects/${encodeURIComponent(userId)}`, {
         cache: 'no-store',
         method: "GET",
         headers: {
@@ -85,7 +85,7 @@ function SubjectsContent() {
     subjects.forEach((subject) => {
       const grade = subject.grade.toLowerCase();
       if (grade in gradePoints) {
-        sum += gradePoints[grade]*subject.credit;
+        sum += gradePoints[grade] * subject.credit;
       } else {
         console.warn(`Unknown grade: ${subject.grade}`);
       }
@@ -138,8 +138,8 @@ function SubjectsContent() {
   }, [userId]);
 
   return (
-    <div className="h-screen w-screen flex justify-center items-center">
-      <div className="h-3/6 w-1/3 border-2 border-gray-600 flex flex-col justify-center items-start">
+    <div className="flex flex-col justify-center items-center h-screen bg-gradient-to-r from-graycustom to-black px-4">
+      <div className="border h-3/6 w-full max-w-md flex flex-col justify-center items-start bg-gray-900 bg-opacity-90 rounded-lg p-4">
         <h2 className="text-3xl font-extrabold py-2 px-8 text-gray-300">Congrats {name}</h2>
         <p className="mb-4 text-lg font-normal text-gray-400 px-8">
           Your Calculated GPA is...
@@ -163,7 +163,7 @@ function SubjectsContent() {
 
 const FetchSubjects = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div className="flex justify-center items-center h-screen text-gray-300">Loading...</div>}>
       <SubjectsContent />
     </Suspense>
   );
