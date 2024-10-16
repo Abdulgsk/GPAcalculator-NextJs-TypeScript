@@ -43,7 +43,7 @@ export default function Calculate() {
               <p className="font-semibold">Instructions:</p>
               <ul className="list-disc list-inside">
                 <li>Grades can be in any case (e.g., A, a, B, b).</li>
-                <li>Use the "+" symbol if needed (e.g., A+).</li>
+                <li>Use the &ldquo;+&ldquo; symbol if needed (e.g., A+).</li>
                 <li>Credits must be greater than 1 and less than 4.</li>
                 <li>No fields should be left empty.</li>
               </ul>
