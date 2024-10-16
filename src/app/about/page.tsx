@@ -16,11 +16,11 @@ const GpaCalculator = () => {
       </ul>
 
       <p className="text-lg text-gray-300 mb-6">
-        The calculator then calculates your GPA based on a common 4.0 scale (adjust based on your institution's scale if needed).
+        The calculator then calculates your GPA based on a common 4.0 scale (adjust based on your institution&apos;s scale if needed).
       </p>
 
       <p className="text-lg text-gray-300 mb-6">
-        To get started, simply input your course details and click the "Calculate GPA" button. The calculator will provide you with your overall GPA.
+        To get started, simply input your course details and click the &quot;Calculate GPA&quot; button. The calculator will provide you with your overall GPA.
       </p>
 
       <div className="bg-white rounded-lg p-6 mb-6">
@@ -29,7 +29,7 @@ const GpaCalculator = () => {
           <li className="text-gray-950">Enter the name of each course.</li>
           <li className="text-gray-950">Input the number of credits for each course.</li>
           <li className="text-gray-950">Select your grade from the dropdown menu for each course.</li>
-          <li className="text-gray-950">Click the "Calculate GPA" button.</li>
+          <li className="text-gray-950">Click the &quot;Calculate GPA&quot; button.</li>
         </ol>
       </div>
 
@@ -38,7 +38,7 @@ const GpaCalculator = () => {
       </div>
 
       <p className="text-gray-200 mb-4">
-        **Disclaimer:** While this calculator provides a general estimate, it's recommended to consult the specific grading policies of your institution for accurate calculations.
+        **Disclaimer:** While this calculator provides a general estimate, it&apos;s recommended to consult the specific grading policies of your institution for accurate calculations.
       </p>
 
       <p className="text-gray-200 mb-4">
