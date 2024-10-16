@@ -8,10 +8,16 @@ interface EditPageParams {
 interface EditProps {
   params: EditPageParams;
 }
+
 const getTopicById = async (id: string) => {
   try {
     const encodedId = encodeURIComponent(id.trim());
-    const res = await fetch(`/api/editSubjects/${encodedId}`, {
+   ;
+    const url = `/api/editSubjects?id=${encodedId}`;
+    
+    console.log("Fetching from URL:", url);
+
+    const res = await fetch(url, {
       cache: "no-store",
       method: "GET",
       headers: {
@@ -57,7 +63,7 @@ export default async function Update({ params }: EditProps) {
   } catch (error) {
     console.error("Error in Update component:", error);
     return (
-      <div className="w-full h-full flex justify-center items-center text-gray-200">
+      <div className="w-full h-full flex justify-center items-center text-red-700">
         <h1>Error: {(error as Error).message || `Failed to fetch subject ${id}`}</h1>
       </div>
     );
