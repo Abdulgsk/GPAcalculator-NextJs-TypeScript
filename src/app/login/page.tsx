@@ -79,7 +79,7 @@ export default function Home() {
           </button>
         </div>
         <p className="text-gray-100 text-center mt-4 w-full">
-          Don't have an account?
+          Don&apos;t have an account?
           <Link className="text-blue-300 hover:underline" href={'/'}>
             Register
           </Link>
