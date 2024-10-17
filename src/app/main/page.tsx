@@ -47,6 +47,7 @@ export default function Calculate() {
                 <li>Use the &ldquo;+&ldquo; symbol if needed (e.g., A+).</li>
                 <li>Credits must be greater than 1 and less than 4.</li>
                 <li>No fields should be left empty.</li>
+                <li>For institutions who does&apos;nt prefer c+ as a grade please consider c+ as c and ommit c</li>
               </ul>
             </div>
           )}
