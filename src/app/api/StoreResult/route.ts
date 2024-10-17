@@ -14,7 +14,7 @@ export async function POST(request: Request) {
             { new: true, upsert: true } 
         );
         
-        const updatedSemster = await Semster.findOneAndUpdate(
+        await Semster.findOneAndUpdate(
             { _id : semId},
             {result},
             { upsert: true } 

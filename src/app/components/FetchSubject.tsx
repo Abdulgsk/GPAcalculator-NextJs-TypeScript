@@ -21,7 +21,7 @@ const FetchSubjects = ({ semId , onSubjectCountChange}: { semId: string | null, 
   const [loading, setLoading] = useState(true);
   const { deletionCount, additionCount } = useSubjectStore();
 
-  const getSubjects = async (userId: string | null): Promise<Subject[]> => {
+  const getSubjects = async (semId: string | null): Promise<Subject[]> => {
     if (!semId) return [];
     try {
       const res = await fetch(`/api/getSubjects/${encodeURIComponent(semId)}`, {
