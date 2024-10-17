@@ -20,7 +20,7 @@ function UserNameContent() {
       <div className="flex justify-center md:justify-start md:ml-12 w-full md:w-2/3 px-4 md:px-0">
         <Link
           className="text-gray-900 bg-gradient-to-r w-full md:w-3/4 from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-md text-sm px-5 py-2.5 text-center mb-4 md:mb-2"
-          href={`/main?userId=${userId}`}
+          href={`/sem?userId=${userId}`}
         >
           Start
         </Link>

@@ -16,15 +16,15 @@ interface Subject {
 
 
 
-const FetchSubjects = ({ userId , onSubjectCountChange}: { userId: string | null, onSubjectCountChange: (count: number) => void }) => {
+const FetchSubjects = ({ semId , onSubjectCountChange}: { semId: string | null, onSubjectCountChange: (count: number) => void }) => {
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [loading, setLoading] = useState(true);
   const { deletionCount, additionCount } = useSubjectStore();
 
   const getSubjects = async (userId: string | null): Promise<Subject[]> => {
-    if (!userId) return [];
+    if (!semId) return [];
     try {
-      const res = await fetch(`/api/getSubjects/${encodeURIComponent(userId)}`, {
+      const res = await fetch(`/api/getSubjects/${encodeURIComponent(semId)}`, {
         cache: 'no-store',
         method: "GET",
         headers: {
@@ -46,14 +46,14 @@ const FetchSubjects = ({ userId , onSubjectCountChange}: { userId: string | null
 
   useEffect(() => {
     const fetchData = async () => {
-      const fetchedSubjects = await getSubjects(userId);
+      const fetchedSubjects = await getSubjects(semId);
       setSubjects(fetchedSubjects);
       onSubjectCountChange(fetchedSubjects.length);
       setLoading(false);
     };
 
     fetchData();
-  }, [userId, deletionCount, additionCount]);
+  }, [semId, deletionCount, additionCount]);
 
   if (loading) {
     return <div className="w-full flex justify-center items-center text-gray-300 font-medium p-2">Loading...</div>;

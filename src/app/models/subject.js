@@ -19,7 +19,7 @@ const subjectSchema = new mongoose.Schema({
         type : Number,
         required : true,
     },
-    userId: {
+    semId: {
         type: String,
         required: true,  
     }

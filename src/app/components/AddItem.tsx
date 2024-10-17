@@ -5,7 +5,7 @@ import useSubjectStore from '../store/subjectStore';
 
 export default function AddItems() {
     const searchParams = useSearchParams();
-    const [userId, setUserId] = useState<string | null>(null); // Store userId in state
+    const [semId, setSemId] = useState<string | null>(null); // Store userId in state
 
     const [subject, setSubject] = useState("");
     const [grade, setGrade] = useState("");
@@ -15,7 +15,7 @@ export default function AddItems() {
     const incrementAdditionCount = useSubjectStore((state) => state.incrementAdditionCount);
 
     useEffect(() => {
-        setUserId(searchParams.get("userId"));
+        setSemId(searchParams.get("semId"));
     }, [searchParams]); // Only set userId when searchParams change
 
     const handleSubmit = async (event: React.FormEvent) => {
@@ -25,7 +25,7 @@ export default function AddItems() {
         const validGrades = ["O", "o", "A", "a", "A+", "a+", "B", "b", "B+", "b+", "C", "c", "C+", "c+"];
         const creditsNumber = parseInt(credits, 10);
 
-        if (subject === "" || grade === "" || credits === "" || !userId) {
+        if (subject === "" || grade === "" || credits === "" || !semId) {
             alert("All fields must be filled out");
             setLoading("Add Subject");
             return;
@@ -47,7 +47,7 @@ export default function AddItems() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ subject, grade, credits: creditsNumber, userId }),
+                body: JSON.stringify({ subject, grade, credits: creditsNumber, semId }),
             });
             if (!res.ok) {
                 throw new Error("Failed to add Subject");

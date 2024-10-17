@@ -1,5 +1,5 @@
 import { dbConnect } from "@/app/_lib/mongoose";
-import Subjects from "@/app/models/subject";
+import Semster from "@/app/models/semster";
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
@@ -16,14 +16,14 @@ export async function GET(request: NextRequest) {
   
       await dbConnect();
   
-      const subject = await Subjects.findById(_id);
+      const semster = await Semster.findById(_id);
   
-      if (!subject) {
+      if (!semster) {
         console.log("Subject not found");
         return NextResponse.json({ message: 'Subject not found' }, { status: 404 });
       }
   
-      return NextResponse.json({ subject }, { status: 200 });
+      return NextResponse.json({ semster }, { status: 200 });
     } catch (error) {
       console.error('Error finding subject:', error);
       return NextResponse.json({ message: 'Error finding subject', error: (error as Error).message }, { status: 500 });

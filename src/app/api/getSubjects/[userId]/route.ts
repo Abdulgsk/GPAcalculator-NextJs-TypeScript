@@ -7,19 +7,19 @@ import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
-     const userId = request.nextUrl.pathname.split('/').pop();
+     const semId = request.nextUrl.pathname.split('/').pop();
     
 
-    if (!userId) {
+    if (!semId) {
       return NextResponse.json(
-        { message: "userId parameter is required" },
+        { message: "semId parameter is required" },
         { status: 400 }
       );
     }
 
     await dbConnect();
 
-    const subjects = await Subjects.find({ userId });
+    const subjects = await Subjects.find({ semId });
 
     return NextResponse.json(subjects, { status: 200 });
   } catch (error) {

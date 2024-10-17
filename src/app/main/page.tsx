@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 
 export default function Calculate() {
   const params = useSearchParams();
+  const semId = params.get("semId");
   const userId = params.get("userId");
   const router = useRouter();
 
@@ -21,7 +22,7 @@ export default function Calculate() {
       alert("Please add subjects before proceeding to the result.");
       return;
     }
-    router.push(`/result?userId=${userId}`);
+    router.push(`/result?userId=${userId}&semId=${semId}`);
   };
 
 
@@ -57,7 +58,7 @@ export default function Calculate() {
           <AddItems />
           
           <div className="w-full mt-2 overflow-auto">
-            <FetchSubjects userId={userId}   onSubjectCountChange={setSubjectCount} />
+            <FetchSubjects semId={semId}   onSubjectCountChange={setSubjectCount} />
           </div>
         </div>
         <button

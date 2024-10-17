@@ -2,12 +2,15 @@ import mongoose from "mongoose";
 
 
 const resultSchema = new mongoose.Schema({
-     userId: {
+     name: {
         type: String,
-        unique: true,
      },
     result: {
         type : Number,
+        required : true,
+    },
+    semId: {
+        type : String,
         required : true,
     }
 },   

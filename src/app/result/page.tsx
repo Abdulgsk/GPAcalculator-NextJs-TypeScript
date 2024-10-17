@@ -12,6 +12,7 @@ interface Subject {
 
 function SubjectsContent() {
   const params = useSearchParams();
+  const semId = params.get("semId");
   const userId = params.get("userId");
 
   const [subjects, setSubjects] = useState<Subject[]>([]);
@@ -44,9 +45,9 @@ function SubjectsContent() {
   };
 
   const getSubjects = async (): Promise<Subject[]> => {
-    if (!userId) return [];
+    if (!semId) return [];
     try {
-      const res = await fetch(`/api/getSubjects/${encodeURIComponent(userId)}`, {
+      const res = await fetch(`/api/getSubjects/${encodeURIComponent(semId)}`, {
         cache: 'no-store',
         method: "GET",
         headers: {
@@ -95,34 +96,27 @@ function SubjectsContent() {
   };
 
   const handleGpa = async () => {
-    setLoading(true); 
-
-    const fetchedSubjects = await getSubjects();
-    setSubjects(fetchedSubjects);
-
-    const totalCredits = handleSumCredits();
-    const gradeSum = handleGradeSum();
-    
-    if (totalCredits > 0) {
-      const calculatedGpa = parseFloat((gradeSum / totalCredits).toFixed(2));
-      setResult(calculatedGpa);
-
-      await handleStoreGpa(calculatedGpa);
-      setLoading(false);
-      return calculatedGpa;
+    try {
+        setLoading(true);
+        if (subjects.length === 0) {
+            const fetchedSubjects = await getSubjects();
+            setSubjects(fetchedSubjects);
+        }
+    } catch (error) {
+        console.error('Error fetching subjects:', error);
+    } finally {
+        setLoading(false);
     }
-    setLoading(false);
-    return 0;
   };
 
-  const handleStoreGpa = async (gpa: number) => {
+  const handleStoreGpa = async (gpa: number, name: string) => {
     try {
       const res = await fetch("/api/StoreResult", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ result: gpa, userId }),
+        body: JSON.stringify({ result: gpa, name, semId }),
       });
       if (!res.ok) {
         throw new Error('Failed to store GPA');
@@ -132,7 +126,21 @@ function SubjectsContent() {
     }
   };
 
-  // Fetch user name when component mounts
+  // Effect to calculate GPA when subjects are fetched
+  useEffect(() => {
+    if (subjects.length > 0) {
+      const totalCredits = handleSumCredits();
+      const gradeSum = handleGradeSum();
+
+      let calculatedGpa = 0;
+      if (totalCredits > 0) {
+        calculatedGpa = parseFloat((gradeSum / totalCredits).toFixed(2));
+        setResult(calculatedGpa);
+        handleStoreGpa(calculatedGpa, name);
+      }
+    }
+  }, [subjects, name]); // Add 'name' to the dependency array if it's needed for GPA calculation
+
   useEffect(() => {
     getUserName();
   }, [userId]);

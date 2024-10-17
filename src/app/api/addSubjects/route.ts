@@ -5,10 +5,10 @@ import { NextResponse } from "next/server";
 export async function POST(request : Request){
 
     try{
-    const{ subject , grade , credits ,userId} = await request.json();
+    const{ subject , grade , credits ,semId} = await request.json();
      await dbConnect();
 
-     await Subjects.create({subName : subject,grade ,credit : credits,userId});
+     await Subjects.create({subName : subject,grade ,credit : credits, semId});
 
      return NextResponse.json(
         { message: "Subject Successfully Created" },
